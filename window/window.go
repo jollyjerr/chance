@@ -46,11 +46,15 @@ func RenderPicture(path string) (pixel.Picture, error) {
 }
 
 // RenderSprite returns a configured pixel sprite
-func RenderSprite(path string) *pixel.Sprite {
+func RenderSprite(path string, args [4]float64) *pixel.Sprite {
 	pic, err := RenderPicture(path)
 	if err != nil {
 		panic(err) // TODO handle picture load errors
 	}
-	sprite := pixel.NewSprite(pic, pic.Bounds())
+
+	size := pixel.R(args[0], args[1], args[2], args[3])
+
+	sprite := pixel.NewSprite(pic, size)
+
 	return sprite
 }

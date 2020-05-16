@@ -1,9 +1,12 @@
 package main
 
 import (
+	// w "chance/window"
+	chanceModel "chance/models/chance"
+	// "time"
+
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
-	w "chance/window"
 	"golang.org/x/image/colornames"
 )
 
@@ -19,11 +22,24 @@ func run() {
 		panic(err)
 	}
 
-	win.Clear(colornames.Slategray)
-	sprite := w.RenderSprite("./sprites/characters/helloworld.png")
-	sprite.Draw(win, pixel.IM.Moved(win.Bounds().Center()))
+	chance := chanceModel.Construct()
+	// angle := 0.0
 
+	// last := time.Now()
 	for !win.Closed() {
+		win.Clear(colornames.Slategray)
+		// deltaTime := time.Since(last).Seconds()
+		// last = time.Now() 
+
+		// angle += 3 * deltaTime
+
+		mat := pixel.IM
+		// mat = mat.Rotated(pixel.ZV, angle)
+		mat = mat.Scaled(pixel.ZV, 6)
+		mat = mat.Moved(win.Bounds().Center())
+		chance.Sprite.Draw(win, mat)
+
+
 		win.Update()
 	}
 }
